@@ -95,6 +95,14 @@ class Article < Content
   include Article::States
 
   class << self
+
+    def merge_with(article_id)
+      article = Article.find(article_id)
+      if article.exist?
+        self.body += ' ' + article.body
+      end
+    end
+
     def last_draft(article_id)
       article = Article.find(article_id)
       while article.has_child?
