@@ -469,7 +469,7 @@ class Article < Content
   end
 
   public
-  def merge_with(article_id)
+  def merge_with!(article_id)
     article = Article.find(article_id)
     if article && article.id != self.id
       self.body += ' ' + article.body

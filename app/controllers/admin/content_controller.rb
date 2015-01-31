@@ -10,7 +10,7 @@ class Admin::ContentController < Admin::BaseController
   def merge
     article = Article.find(params[:id])
     if article
-      article.merge_with params[:merge_with]
+      article.merge_with! params[:merge_with]
       article.save
       redirect_to "/admin/content/edit/#{article.id}"
     end
