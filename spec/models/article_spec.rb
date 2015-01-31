@@ -21,6 +21,15 @@ describe Article do
     end
   end
 
+  it 'should merge articles correctly' do
+    a = Article.new(title: 'Foo', body: '123')
+    b = double("article", id: 123, body: 'asd', destroy: nil)
+    allow(Article).to receive(:find) { b }
+    expect(b).to receive(:destroy).with(no_args) { nil }
+    a.merge_with!(123)
+    assert_equal a.body, '123 asd'
+  end
+
   it "test_content_fields" do
     a = Article.new
     assert_equal [:body, :extended], a.content_fields

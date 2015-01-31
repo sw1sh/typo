@@ -624,6 +624,11 @@ describe Admin::ContentController do
 
     describe 'edit action' do
 
+      it 'should not merge articles if user is not an admin' do
+        post :edit, :id => Factory(:article, :user => Factory(:user, :login => 'non_admin_user')).id  
+        response.should redirect_to(:action => 'index')
+      end
+
       it "should redirect if edit article doesn't his" do
         get :edit, :id => Factory(:article, :user => Factory(:user, :login => 'another_user')).id
         response.should redirect_to(:action => 'index')
