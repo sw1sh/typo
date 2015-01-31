@@ -96,13 +96,6 @@ class Article < Content
 
   class << self
 
-    def merge_with(article_id)
-      article = Article.find(article_id)
-      if article.exist?
-        self.body += ' ' + article.body
-      end
-    end
-
     def last_draft(article_id)
       article = Article.find(article_id)
       while article.has_child?
@@ -474,4 +467,14 @@ class Article < Content
     to = to - 1 # pull off 1 second so we don't overlap onto the next day
     return from..to
   end
+
+  public
+  def merge_with(article_id)
+    article = Article.find(article_id)
+    if article && article.id != self.id
+      self.body += ' ' + article.body
+      article.destroy
+    end
+  end
+
 end

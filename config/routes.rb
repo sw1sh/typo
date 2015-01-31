@@ -68,6 +68,7 @@ Rails.application.routes.draw do
   match 'articles/markup_help/:id', :to => 'articles#markup_help', :format => false
   match 'articles/tag', :to => 'articles#tag', :format => false
   match 'articles/category', :to => 'articles#category', :format => false
+  post '/admin/content/edit/:id/merge', :controller => 'admin/content', :action => 'merge', :format => false
 
   # SetupController
   match '/setup', :to => 'setup#index', :format => false
